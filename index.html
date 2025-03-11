@@ -3,56 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Demo Site</title>
+    <title>NextGen News</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet>
 </head>
 <body>
     <header class="header">
         <nav class="navbar">
-            <div class="logo">DemoSite</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
-            <button class="theme-toggle">🌓</button>
+            <div class="logo">
+                <i class="fas fa-newspaper"></i>
+                NextGen News
+            </div>
+            <div class="nav-controls">
+                <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+                <select id="categorySelect" class="category-select">
+                    <option value="general">All News</option>
+                    <option value="technology">Technology</option>
+                    <option value="business">Business</option>
+                    <option value="science">Science</option>
+                </select>
+            </div>
         </nav>
     </header>
 
     <main>
-        <section class="hero" id="home">
-            <div class="hero-content">
-                <h1 class="animated-title">Welcome to Future</h1>
-                <canvas id="particles"></canvas>
-            </div>
-        </section>
-
-        <section class="features" id="features">
-            <div class="feature-card">
-                <h3>Interactive UI</h3>
-                <p>Experience dynamic user interface</p>
-            </div>
-            <div class="feature-card">
-                <h3>Real-time Data</h3>
-                <p>API integration example</p>
-            </div>
-        </section>
-
-        <section class="contact-form">
-            <h2>Contact Us</h2>
-            <form id="contactForm">
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
-                <textarea placeholder="Message" required></textarea>
-                <button type="submit">Send</button>
-            </form>
+        <section class="news-grid" id="newsContainer">
+            <!-- News cards will be injected here -->
+            <div class="loader"><div class="spinner"></div></div>
         </section>
     </main>
-
-    <footer class="footer">
-        <p>© 2023 Demo Site. All rights reserved.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
