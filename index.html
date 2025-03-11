@@ -1,24 +1,59 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>хер в столицах</title>
+    <title>Advanced Demo Site</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>не хер в столицах</h1>
-        <select id="citySelect">
-            <option value="Europe/Moscow">Москва, Россия</option>
-            <option value="Europe/London">Лондон, Великобритания</option>
-            <option value="Europe/Paris">Париж, Франция</option>
-            <option value="America/New_York">Нью-Йорк, США</option>
-            <option value="Asia/Tokyo">Токио, Япония</option>
-            <option value="Australia/Sydney">Сидней, Австралия</option>
-        </select>
-        <div id="time"></div>
-    </div>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">DemoSite</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <button class="theme-toggle">🌓</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1 class="animated-title">Welcome to Future</h1>
+                <canvas id="particles"></canvas>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <div class="feature-card">
+                <h3>Interactive UI</h3>
+                <p>Experience dynamic user interface</p>
+            </div>
+            <div class="feature-card">
+                <h3>Real-time Data</h3>
+                <p>API integration example</p>
+            </div>
+        </section>
+
+        <section class="contact-form">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2023 Demo Site. All rights reserved.</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
