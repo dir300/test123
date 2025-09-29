@@ -5,7 +5,7 @@ const USERS_FILE = path.join(__dirname, 'users.json');
 
 // Admin user IDs (можно добавить свои)
 const ADMIN_USER_IDS = [
-    123456789, // Тестовый пользователь
+    410375956, // Тестовый пользователь
     // Добавьте сюда ID администраторов из Telegram
 ];
 
