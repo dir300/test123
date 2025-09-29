@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone 15 Pro",
+    "price": 99990,
+    "description": "Новый iPhone с революционным дизайном и камерой",
+    "image": "📱",
+    "category": "phones",
+    "inStock": true
+  },
+  {
+    "id": 2,
+    "name": "MacBook Air M2",
+    "price": 129990,
+    "description": "Мощный и легкий ноутбук для работы и творчества",
+    "image": "💻",
+    "category": "laptops",
+    "inStock": true
+  },
+  {
+    "id": 3,
+    "name": "AirPods Pro",
+    "price": 24990,
+    "description": "Беспроводные наушники с активным шумоподавлением",
+    "image": "🎧",
+    "category": "audio",
+    "inStock": true
+  },
+  {
+    "id": 4,
+    "name": "Apple Watch Series 9",
+    "price": 39990,
+    "description": "Умные часы для активного образа жизни",
+    "image": "⌚",
+    "category": "wearables",
+    "inStock": true
+  },
+  {
+    "id": 5,
+    "name": "iPad Air",
+    "price": 59990,
+    "description": "Универсальный планшет для работы и развлечений",
+    "image": "📱",
+    "category": "tablets",
+    "inStock": true
+  },
+  {
+    "id": 6,
+    "name": "Magic Keyboard",
+    "price": 12990,
+    "description": "Беспроводная клавиатура с подсветкой",
+    "image": "⌨️",
+    "category": "accessories",
+    "inStock": true
+  }
+]
