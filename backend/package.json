@@ -1,7 +1,7 @@
 {
   "name": "telegram-shop-backend",
   "version": "1.0.0",
-  "description": "Backend for Telegram Shop MVP",
+  "description": "Backend for Telegram Shop with Admin Panel",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
