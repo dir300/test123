@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+// Serve static files from frontend
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Импорт модулей
@@ -32,13 +34,26 @@ const CATEGORIES_FILE = path.join(__dirname, 'categories.json');
 const ORDERS_FILE = path.join(__dirname, 'orders.json');
 const USERS_FILE = path.join(__dirname, 'users.json');
 
-// Serve frontend
+// Serve frontend pages
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
-app.get('/admin.html', (req, res) => {
+app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/admin.html'));
+});
+
+// Serve static files
+app.get('/style.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/style.css'));
+});
+
+app.get('/script.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/script.js'));
+});
+
+app.get('/admin.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/admin.js'));
 });
 
 // API Routes
@@ -259,10 +274,17 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+// Fallback for all other routes - serve index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
+
 // Start server
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`📦 API available at http://localhost:${PORT}/api`);
-    console.log(`🛍️ Frontend available at http://localhost:${PORT}`);
-    console.log(`⚙️ Admin panel available at http://localhost:${PORT}/admin.html`);
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`📦 API available at /api`);
+    console.log(`🛍️ Frontend available at /`);
+    console.log(`⚙️ Admin panel available at /admin`);
 });
+
+module.exports = app;
