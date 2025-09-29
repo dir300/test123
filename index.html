@@ -1,38 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NextGen News</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet>
+    <title>Telegram Shop MVP</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar">
-            <div class="logo">
-                <i class="fas fa-newspaper"></i>
-                NextGen News
+    <div class="container">
+        <header class="header">
+            <h1>🛍️ Магазин</h1>
+            <div class="user-info" id="userInfo">
+                <!-- Информация о пользователе -->
             </div>
-            <div class="nav-controls">
-                <button class="theme-toggle"><i class="fas fa-moon"></i></button>
-                <select id="categorySelect" class="category-select">
-                    <option value="general">All News</option>
-                    <option value="technology">Technology</option>
-                    <option value="business">Business</option>
-                    <option value="science">Science</option>
-                </select>
-            </div>
-        </nav>
-    </header>
+        </header>
 
-    <main>
-        <section class="news-grid" id="newsContainer">
-            <!-- News cards will be injected here -->
-            <div class="loader"><div class="spinner"></div></div>
-        </section>
-    </main>
+        <div class="loading" id="loadingIndicator">
+            <div class="products-grid" id="productsContainer">
+                <!-- Товары загружаются здесь -->
+            </div>
+        </div>
+
+        <!-- Модальное окно товара -->
+        <div id="productModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalProductTitle">Товар</h3>
+                    <button class="close-modal" onclick="closeModal()">×</button>
+                </div>
+                <div id="modalProductContent">
+                    <!-- Контент модального окна -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно корзины -->
+        <div id="cartModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🛒 Корзина</h3>
+                    <button class="close-modal" onclick="closeModal()">×</button>
+                </div>
+                <div id="cartContent">
+                    <!-- Содержимое корзины -->
+                </div>
+                <button class="btn" onclick="proceedToCheckout()" style="margin-top: 16px;">
+                    Оформить заказ
+                </button>
+            </div>
+        </div>
+
+        <!-- Модальное окно заказа -->
+        <div id="orderModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>✅ Заказ оформлен</h3>
+                    <button class="close-modal" onclick="closeModal()">×</button>
+                </div>
+                <div id="orderContent">
+                    <!-- Информация о заказе -->
+                </div>
+                <button class="btn btn-secondary" onclick="closeModal()">
+                    Продолжить покупки
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Нижняя панель с корзиной -->
+    <div class="bottom-panel">
+        <div class="cart-total">
+            <span>Итого:</span>
+            <span class="total-price" id="totalPrice">0 ₽</span>
+        </div>
+        <button class="btn" onclick="openCart()">
+            Перейти к корзине (<span id="cartCount">0</span>)
+        </button>
+    </div>
 
     <script src="script.js"></script>
 </body>
