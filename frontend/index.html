@@ -3,78 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Shop MVP</title>
+    <title>Telegram Shop</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
+        <!-- Шапка с пользователем -->
         <header class="header">
-            <h1>🛍️ Магазин</h1>
-            <div class="user-info" id="userInfo">
-                <!-- Информация о пользователе -->
+            <div class="header-left">
+                <h1>🛍️ Магазин</h1>
+            </div>
+            <div class="header-right">
+                <div id="userInfo" class="user-info"></div>
+                <button id="adminBtn" class="btn-admin" style="display: none;">⚙️ Админ</button>
             </div>
         </header>
 
-        <div class="loading" id="loadingIndicator">
-            <div class="products-grid" id="productsContainer">
-                <!-- Товары загружаются здесь -->
-            </div>
-        </div>
+        <!-- Навигация по категориям -->
+        <nav class="categories-nav" id="categoriesNav">
+            <!-- Категории загружаются через JS -->
+        </nav>
 
-        <!-- Модальное окно товара -->
+        <!-- Основной контент -->
+        <main>
+            <div id="loadingIndicator" class="loading">
+                <div class="products-grid" id="productsContainer">
+                    <!-- Товары загружаются здесь -->
+                </div>
+            </div>
+
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">📦</div>
+                <h3>Нет товаров</h3>
+                <p>В этой категории пока нет товаров</p>
+            </div>
+        </main>
+
+        <!-- Модальные окна -->
         <div id="productModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 id="modalProductTitle">Товар</h3>
                     <button class="close-modal" onclick="closeModal()">×</button>
                 </div>
-                <div id="modalProductContent">
-                    <!-- Контент модального окна -->
-                </div>
+                <div id="modalProductContent"></div>
             </div>
         </div>
 
-        <!-- Модальное окно корзины -->
         <div id="cartModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>🛒 Корзина</h3>
                     <button class="close-modal" onclick="closeModal()">×</button>
                 </div>
-                <div id="cartContent">
-                    <!-- Содержимое корзины -->
-                </div>
+                <div id="cartContent"></div>
                 <button class="btn" onclick="proceedToCheckout()" style="margin-top: 16px;">
                     Оформить заказ
                 </button>
             </div>
         </div>
-
-        <!-- Модальное окно заказа -->
-        <div id="orderModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>✅ Заказ оформлен</h3>
-                    <button class="close-modal" onclick="closeModal()">×</button>
-                </div>
-                <div id="orderContent">
-                    <!-- Информация о заказе -->
-                </div>
-                <button class="btn btn-secondary" onclick="closeModal()">
-                    Продолжить покупки
-                </button>
-            </div>
-        </div>
     </div>
 
-    <!-- Нижняя панель с корзиной -->
+    <!-- Нижняя панель -->
     <div class="bottom-panel">
         <div class="cart-total">
             <span>Итого:</span>
             <span class="total-price" id="totalPrice">0 ₽</span>
         </div>
         <button class="btn" onclick="openCart()">
-            Перейти к корзине (<span id="cartCount">0</span>)
+            Корзина (<span id="cartCount">0</span>)
         </button>
     </div>
 
