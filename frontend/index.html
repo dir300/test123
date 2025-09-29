@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Shop MVP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🛍️ Магазин</h1>
+            <div class="user-info" id="userInfo">
+                <!-- Информация о пользователе -->
+            </div>
+        </header>
+
+        <div class="loading" id="loadingIndicator">
+            <div class="products-grid" id="productsContainer">
+                <!-- Товары загружаются здесь -->
+            </div>
+        </div>
+
+        <!-- Модальное окно товара -->
+        <div id="productModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalProductTitle">Товар</h3>
+                    <button class="close-modal" onclick="closeModal()">×</button>
+                </div>
+                <div id="modalProductContent">
+                    <!-- Контент модального окна -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно корзины -->
+        <div id="cartModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🛒 Корзина</h3>
+                    <button class="close-modal" onclick="closeModal()">×</button>
+                </div>
+                <div id="cartContent">
+                    <!-- Содержимое корзины -->
+                </div>
+                <button class="btn" onclick="proceedToCheckout()" style="margin-top: 16px;">
+                    Оформить заказ
+                </button>
+            </div>
+        </div>
+
+        <!-- Модальное окно заказа -->
+        <div id="orderModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>✅ Заказ оформлен</h3>
+                    <button class="close-modal" onclick="closeModal()">×</button>
+                </div>
+                <div id="orderContent">
+                    <!-- Информация о заказе -->
+                </div>
+                <button class="btn btn-secondary" onclick="closeModal()">
+                    Продолжить покупки
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Нижняя панель с корзиной -->
+    <div class="bottom-panel">
+        <div class="cart-total">
+            <span>Итого:</span>
+            <span class="total-price" id="totalPrice">0 ₽</span>
+        </div>
+        <button class="btn" onclick="openCart()">
+            Перейти к корзине (<span id="cartCount">0</span>)
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
