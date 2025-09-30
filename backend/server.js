@@ -242,6 +242,178 @@ app.post('/api/orders', async (req, res) => {
     }
 });
 
+// Весовая система для товаров
+function openProductModal(product) {
+    const modal = document.getElementById('productModal');
+    const title = document.getElementById('modalProductTitle');
+    const content = document.getElementById('modalProductContent');
+
+    const cartItem = cart.find(item => item.product.id === product.id);
+    const currentWeight = cartItem ? cartItem.weight : product.minWeight;
+
+    title.textContent = product.name;
+    content.innerHTML = `
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div style="font-size: 48px; margin-bottom: 16px;">${product.image}</div>
+            <div style="font-size: 18px; color: var(--hint-color); margin-bottom: 8px;">
+                ${getCategoryName(product.category)}
+            </div>
+            <div style="font-size: 14px; color: var(--hint-color); margin-bottom: 12px;">
+                ${product.price} ₽/${product.unit === 'г' ? 'кг' : 'л'}
+            </div>
+            <div style="font-size: 24px; font-weight: 600; color: var(--link-color);">
+                ${formatPrice(calculatePrice(product.price, currentWeight, product.unit))}
+            </div>
+        </div>
+        <p style="margin-bottom: 20px; color: var(--text-color);">${product.description}</p>
+        
+        <div style="margin-bottom: 20px;">
+            <label class="form-label">Вес:</label>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <button class="quantity-btn" onclick="changeWeight(${product.id}, -${product.step})">-</button>
+                <div style="flex: 1; display: flex; align-items: center; gap: 8px;">
+                    <input type="number" 
+                           id="weightInput-${product.id}" 
+                           class="form-input" 
+                           style="text-align: center; padding: 8px;"
+                           value="${currentWeight}"
+                           min="${product.minWeight}"
+                           step="${product.step}"
+                           onchange="updateWeightFromInput(${product.id})">
+                    <span>${product.unit}</span>
+                </div>
+                <button class="quantity-btn" onclick="changeWeight(${product.id}, ${product.step})">+</button>
+            </div>
+            <div style="font-size: 12px; color: var(--hint-color); text-align: center;">
+                Мин.: ${product.minWeight}${product.unit}, шаг: ${product.step}${product.unit}
+            </div>
+        </div>
+        
+        ${product.inStock === false ? `
+            <div style="text-align: center; color: var(--error-color); padding: 16px; background: var(--secondary-bg-color); border-radius: 8px; margin-bottom: 16px;">
+                🔴 Нет в наличии
+            </div>
+        ` : `
+            <button class="btn ${cartItem ? 'btn-success' : ''}" onclick="addToCartWithWeight(${product.id})">
+                ${cartItem ? '✅ В корзине' : 'Добавить в корзину'}
+            </button>
+        `}
+    `;
+
+    modal.style.display = 'flex';
+}
+
+// Расчет цены на основе веса
+function calculatePrice(pricePerKg, weight, unit) {
+    if (unit === 'г') {
+        return (pricePerKg * weight) / 1000;
+    } else if (unit === 'мл') {
+        return (pricePerKg * weight) / 1000;
+    }
+    return pricePerKg * weight;
+}
+
+// Изменение веса
+function changeWeight(productId, delta) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    const input = document.getElementById(`weightInput-${productId}`);
+    let currentWeight = parseFloat(input.value) || product.minWeight;
+    let newWeight = currentWeight + delta;
+
+    if (newWeight < product.minWeight) {
+        newWeight = product.minWeight;
+    }
+
+    input.value = newWeight;
+    updateProductPrice(productId);
+}
+
+// Обновление веса из input
+function updateWeightFromInput(productId) {
+    const product = products.find(p => p.id === productId);
+    const input = document.getElementById(`weightInput-${productId}`);
+    let newWeight = parseFloat(input.value) || product.minWeight;
+
+    if (newWeight < product.minWeight) {
+        newWeight = product.minWeight;
+        input.value = newWeight;
+    }
+
+    // Округление до шага
+    const remainder = newWeight % product.step;
+    if (remainder !== 0) {
+        newWeight = newWeight - remainder + (remainder >= product.step / 2 ? product.step : 0);
+        input.value = newWeight;
+    }
+
+    updateProductPrice(productId);
+}
+
+// Обновление цены при изменении веса
+function updateProductPrice(productId) {
+    const product = products.find(p => p.id === productId);
+    const input = document.getElementById(`weightInput-${productId}`);
+    const weight = parseFloat(input.value) || product.minWeight;
+    const priceElement = document.querySelector(`#modalProductContent div:nth-child(1) div:nth-child(4)`);
+    
+    if (priceElement) {
+        priceElement.textContent = formatPrice(calculatePrice(product.price, weight, product.unit));
+    }
+}
+
+// Добавление в корзину с весом
+function addToCartWithWeight(productId) {
+    const product = products.find(p => p.id === productId);
+    const input = document.getElementById(`weightInput-${productId}`);
+    const weight = parseFloat(input.value) || product.minWeight;
+
+    const existingItem = cart.find(item => item.product.id === productId);
+    
+    if (existingItem) {
+        existingItem.weight = weight;
+    } else {
+        cart.push({
+            product: product,
+            weight: weight
+        });
+    }
+    
+    updateCartUI();
+    showNotification('Товар добавлен в корзину');
+}
+
+// Обновление UI корзины с учетом веса
+function updateCartUI() {
+    const totalPrice = cart.reduce((sum, item) => sum + calculatePrice(item.product.price, item.weight, item.product.unit), 0);
+    const totalCount = cart.length;
+
+    document.getElementById('totalPrice').textContent = formatPrice(totalPrice);
+    document.getElementById('cartCount').textContent = totalCount;
+
+    // Обновляем содержимое модального окна корзины
+    const cartContent = document.getElementById('cartContent');
+    if (cart.length === 0) {
+        cartContent.innerHTML = '<p style="text-align: center; color: var(--hint-color);">Корзина пуста</p>';
+    } else {
+        cartContent.innerHTML = cart.map(item => `
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--secondary-bg-color);">
+                <div style="flex: 1;">
+                    <div style="font-weight: 500;">${item.product.name}</div>
+                    <div style="color: var(--link-color); font-size: 14px;">
+                        ${item.weight}${item.product.unit} × ${formatPrice(item.product.price)}/${item.product.unit === 'г' ? 'кг' : 'л'}
+                    </div>
+                </div>
+                <div style="font-weight: 600; margin: 0 12px;">
+                    ${formatPrice(calculatePrice(item.product.price, item.weight, item.product.unit))}
+                </div>
+                <button onclick="removeFromCart(${item.product.id})" style="background: none; border: none; color: var(--hint-color); font-size: 20px; cursor: pointer; padding: 4px;">×</button>
+            </div>
+        `).join('');
+    }
+}
+
 // Admin Statistics
 app.get('/api/admin/stats', async (req, res) => {
     try {
