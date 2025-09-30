@@ -1,56 +1,74 @@
 [
   {
     "id": 1,
-    "name": "iPhone 15 Pro",
-    "price": 99990,
-    "description": "Новый iPhone с революционным дизайном и камерой",
-    "image": "📱",
-    "category": "phones",
-    "inStock": true
+    "name": "Пармезан",
+    "price": 1500,
+    "description": "Итальянский твердый сыр с насыщенным вкусом",
+    "image": "🧀",
+    "category": "cheeses",
+    "inStock": true,
+    "minWeight": 100,
+    "step": 50,
+    "unit": "г"
   },
   {
     "id": 2,
-    "name": "MacBook Air M2",
-    "price": 129990,
-    "description": "Мощный и легкий ноутбук для работы и творчества",
-    "image": "💻",
-    "category": "laptops",
-    "inStock": true
+    "name": "Моцарелла",
+    "price": 800,
+    "description": "Свежий итальянский сыр для пиццы и салатов",
+    "image": "🧀",
+    "category": "cheeses",
+    "inStock": true,
+    "minWeight": 200,
+    "step": 100,
+    "unit": "г"
   },
   {
     "id": 3,
-    "name": "AirPods Pro",
-    "price": 24990,
-    "description": "Беспроводные наушники с активным шумоподавлением",
-    "image": "🎧",
-    "category": "audio",
-    "inStock": true
+    "name": "Домашнее молоко",
+    "price": 80,
+    "description": "Свежее парное молоко от фермерских коров",
+    "image": "🥛",
+    "category": "milk",
+    "inStock": true,
+    "minWeight": 500,
+    "step": 100,
+    "unit": "мл"
   },
   {
     "id": 4,
-    "name": "Apple Watch Series 9",
-    "price": 39990,
-    "description": "Умные часы для активного образа жизни",
-    "image": "⌚",
-    "category": "wearables",
-    "inStock": true
+    "name": "Сливочное масло",
+    "price": 200,
+    "description": "Натуральное сливочное масло 82%",
+    "image": "🧈",
+    "category": "butter",
+    "inStock": true,
+    "minWeight": 100,
+    "step": 50,
+    "unit": "г"
   },
   {
     "id": 5,
-    "name": "iPad Air",
-    "price": 59990,
-    "description": "Универсальный планшет для работы и развлечений",
-    "image": "📱",
-    "category": "tablets",
-    "inStock": true
+    "name": "Греческий йогурт",
+    "price": 120,
+    "description": "Натуральный йогурт без добавок",
+    "image": "🍶",
+    "category": "yogurt",
+    "inStock": true,
+    "minWeight": 250,
+    "step": 50,
+    "unit": "г"
   },
   {
     "id": 6,
-    "name": "Magic Keyboard",
-    "price": 12990,
-    "description": "Беспроводная клавиатура с подсветкой",
-    "image": "⌨️",
-    "category": "accessories",
-    "inStock": true
+    "name": "Пармская ветчина",
+    "price": 1800,
+    "description": "Итальянская вяленая ветчина высшего качества",
+    "image": "🍖",
+    "category": "meat",
+    "inStock": true,
+    "minWeight": 100,
+    "step": 25,
+    "unit": "г"
   }
 ]
