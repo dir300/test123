@@ -84,12 +84,15 @@ async function saveProduct(event) {
     event.preventDefault();
     
     const productData = {
-        name: document.getElementById('productName').value,
-        price: parseInt(document.getElementById('productPrice').value),
-        category: document.getElementById('productCategory').value,
-        description: document.getElementById('productDescription').value,
-        image: document.getElementById('productIcon').value,
-        inStock: document.getElementById('productInStock').checked
+    name: document.getElementById('productName').value,
+    price: parseInt(document.getElementById('productPrice').value),
+    category: document.getElementById('productCategory').value,
+    description: document.getElementById('productDescription').value,
+    image: document.getElementById('productIcon').value,
+    inStock: document.getElementById('productInStock').checked,
+    minWeight: parseInt(document.getElementById('productMinWeight').value),
+    step: parseInt(document.getElementById('productStep').value),
+    unit: document.getElementById('productUnit').value
     };
     
     const productId = document.getElementById('productId').value;
@@ -132,7 +135,10 @@ function editProduct(productId) {
     document.getElementById('productDescription').value = product.description;
     document.getElementById('productIcon').value = product.image;
     document.getElementById('productInStock').checked = product.inStock !== false;
-    
+    document.getElementById('productMinWeight').value = product.minWeight || 100;
+    document.getElementById('productStep').value = product.step || 50;
+    document.getElementById('productUnit').value = product.unit || 'г';
+        
     switchTab('products');
 }
 
@@ -182,8 +188,8 @@ function renderProductsList() {
                     </div>
                     <div style="color: var(--hint-color); margin-bottom: 8px;">${product.description}</div>
                     <div style="display: flex; gap: 12px; font-size: 14px;">
-                        <span><strong>Цена:</strong> ${formatPrice(product.price)}</span>
-                        <span><strong>Категория:</strong> ${getCategoryName(product.category)}</span>
+                        <span><strong>Цена:</strong> ${formatPrice(product.price)}/${product.unit === 'г' ? 'кг' : product.unit === 'мл' ? 'л' : 'шт'}</span>
+                        <span><strong>Вес:</strong> от ${product.minWeight}${product.unit}, шаг ${product.step}${product.unit}</span>
                     </div>
                 </div>
                 <div class="btn-group">
