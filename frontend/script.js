@@ -13,16 +13,12 @@ async function initApp() {
     showLoading(true);
     
     try {
-        // Инициализация Telegram Web App
         await initTelegramApp();
-        
-        // Загрузка данных
         await loadInitialData();
-        
-        // Рендер интерфейса
         renderCategories();
         renderProducts();
         updateCartUI();
+        initProfileButton();
         
     } catch (error) {
         console.error('Ошибка инициализации:', error);
@@ -433,6 +429,73 @@ async function processOrder(orderData) {
         showLoading(false);
     }
 }
+
+// Личный кабинет
+function openProfileModal() {
+    const modal = document.getElementById('profileModal');
+    const profileData = document.getElementById('userProfileData');
+    const ordersHistory = document.getElementById('userOrdersHistory');
+
+    // Заполняем данные пользователя
+    profileData.innerHTML = `
+        <p><strong>Имя:</strong> ${currentUser.first_name}</p>
+        <p><strong>Фамилия:</strong> ${currentUser.last_name || 'Не указана'}</p>
+        <p><strong>Username:</strong> @${currentUser.username || 'Не указан'}</p>
+        <p><strong>ID:</strong> ${currentUser.id}</p>
+    `;
+
+    // Загружаем историю заказов
+    loadUserOrdersHistory();
+
+    modal.style.display = 'flex';
+}
+
+// Загрузка истории заказов пользователя
+async function loadUserOrdersHistory() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/orders`);
+        const allOrders = await response.json();
+        
+        const userOrders = allOrders.filter(order => order.user && order.user.id === currentUser.id);
+        const ordersHistory = document.getElementById('userOrdersHistory');
+        
+        if (userOrders.length === 0) {
+            ordersHistory.innerHTML = '<p style="text-align: center; color: var(--hint-color);">Заказов пока нет</p>';
+            return;
+        }
+
+        ordersHistory.innerHTML = userOrders.reverse().map(order => `
+            <div style="border: 1px solid var(--secondary-bg-color); border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <strong>Заказ #${order.id}</strong>
+                    <span style="color: var(--hint-color); font-size: 14px;">
+                        ${new Date(order.timestamp).toLocaleDateString('ru-RU')}
+                    </span>
+                </div>
+                <div style="margin-bottom: 8px;">
+                    ${order.products.map(item => `
+                        <div style="font-size: 14px;">
+                            ${item.product.name} - ${item.weight || item.quantity}${item.product.unit || 'шт'}
+                        </div>
+                    `).join('')}
+                </div>
+                <div style="font-weight: 600; color: var(--link-color); text-align: right;">
+                    ${formatPrice(order.total)}
+                </div>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('Error loading user orders:', error);
+        ordersHistory.innerHTML = '<p style="color: var(--error-color);">Ошибка загрузки заказов</p>';
+    }
+}
+
+// Инициализация кнопки профиля
+function initProfileButton() {
+    document.getElementById('profileBtn').onclick = openProfileModal;
+}
+
+
 
 // Вспомогательные функции
 function formatPrice(price) {
