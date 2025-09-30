@@ -225,6 +225,12 @@ app.post('/api/orders', async (req, res) => {
             updatedAt: new Date().toISOString()
         };
         
+        // Сохраняем вес для каждого товара
+        newOrder.products = newOrder.products.map(item => ({
+            ...item,
+            weight: item.weight || item.quantity // поддержка старых заказов
+        }));
+        
         orders.push(newOrder);
         await writeJSONFile(ORDERS_FILE, orders);
         
