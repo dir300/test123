@@ -4,7 +4,7 @@
     "name": "Пармезан",
     "price": 1500,
     "description": "Итальянский твердый сыр с насыщенным вкусом",
-    "image": "🧀",
+    "image": "https://i.ytimg.com/vi/fl1kuvy3oQg/hq720_2.jpg?sqp=-oaymwEkCOADEOADSFryq4qpAxYIARUAAAAAJQAAyEI9AICiQ3gB0AEB&rs=AOn4CLDKAqtyMlBBPpxBo7iQ93l6zHlULg",
     "category": "cheeses",
     "inStock": true,
     "minWeight": 100,
