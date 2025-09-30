@@ -64,7 +64,27 @@
             </div>
         </div>
     </div>
-
+    
+        <!-- Добавьте это после других модальных окон -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>👤 Мой профиль</h3>
+                <button class="close-modal" onclick="closeModal()">×</button>
+            </div>
+            <div id="profileContent">
+                <div class="admin-card" style="margin-bottom: 16px;">
+                    <h4>Личные данные</h4>
+                    <div id="userProfileData"></div>
+                </div>
+                <div class="admin-card">
+                    <h4>История заказов</h4>
+                    <div id="userOrdersHistory"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Нижняя панель -->
     <div class="bottom-panel">
         <div class="cart-total">
